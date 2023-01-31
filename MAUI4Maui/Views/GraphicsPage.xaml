@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MAUI4Maui.ViewModels"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:DataType="viewModels:GraphicsViewModel"
+             Title="MAUI for Maui"
+             x:Class="MAUI4Maui.Views.GraphicsPage">
+
+    <ScrollView>
+
+        <Grid
+            RowDefinitions="Auto,Auto,Auto,*">
+
+            <Label
+                Grid.Row="0"
+                Text="View prices"
+                FontAttributes="Bold"
+                FontSize="28"
+                Margin="0,8,0,16"
+                HorizontalOptions="Center"/>
+
+            <Picker
+                Grid.Row="1"
+                Margin="16,0"
+                Title="Select a cryptocurrency"
+                ItemsSource="{Binding FavoriteItems}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedItem}"/>
+
+            <Button
+                Grid.Row="2"
+                Text="Fetch"
+                Margin="82,0"
+                WidthRequest="120"
+                Command="{Binding FetchValuesCommand}"/>
+
+            <chart:SfCartesianChart
+                Grid.Row="3">
+
+                <chart:SfCartesianChart.XAxes>
+                    <chart:DateTimeAxis/>
+                </chart:SfCartesianChart.XAxes>
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="{Binding SelectedItem.Name, StringFormat='USD / {0}'}" />
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.YAxes>
+
+                <chart:LineSeries 
+                    ItemsSource="{Binding LastMonthValues}" 
+                    XBindingPath="Date" 
+                    YBindingPath="Value"
+                    EnableTooltip="True"/>
+
+                <chart:SfCartesianChart.ZoomPanBehavior>
+                    <chart:ChartZoomPanBehavior />
+                </chart:SfCartesianChart.ZoomPanBehavior>
+            </chart:SfCartesianChart>
+
+            <ActivityIndicator
+                Grid.Row="1" Grid.RowSpan="3"
+                IsRunning="{Binding IsBusy}"/>
+
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>
