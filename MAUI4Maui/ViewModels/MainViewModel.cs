@@ -39,8 +39,6 @@ public class MainViewModel : ViewModelBase
 
     private async Task FetchDataAsync()
     {
-        
-
         IsBusy = true;
 
         try
@@ -62,6 +60,23 @@ public class MainViewModel : ViewModelBase
         {
             IsBusy = false;
         }
+
+        /*
+        // adding fake data here:
+        if (!FavoriteItems.Any())
+        {
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.01", Name = "Dâni" });
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.02", Name = "Däni" });
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.03", Name = "Dani" });
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.04", Name = "Dáni" });
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.05", Name = "Deni" });
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.06", Name = "Dåni" });
+            await _data.Stocks.AddAsync(new Stock { Id = "FakeID.07", Name = "Dăni" });
+            await _data.SaveChangesAsync();
+
+            LoadFavorites();
+        }
+        */
     }
 
     public RelayCommandAsync AddItemCommand => Get(AddItemAsync, () => !IsBusy && SelectedAvailableItem != null);
