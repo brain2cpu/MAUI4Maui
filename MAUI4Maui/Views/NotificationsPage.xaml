@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI4Maui.Views.NotificationsPage"
+             xmlns:viewModels="clr-namespace:MAUI4Maui.ViewModels"
+             xmlns:converters="clr-namespace:MAUI4Maui.Converters"
+             x:DataType="viewModels:NotificationsViewModel"
+             Title="MAUI for Maui">
+
+    <ContentPage.Resources>
+        <converters:RepeatTypeConverter x:Key="RepeatTypeConverter"/>
+
+        <Style TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="6,5"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="WidthRequest" Value="80"/>
+            <Setter Property="Margin" Value="8"/> 
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- 
+        https://github.com/dotnet/maui/issues/10322 
+        https://github.com/dotnet/maui/issues/5292
+    -->
+    <!--<TableView Intent="Settings"
+               HasUnevenRows="True">
+        <TableRoot>
+            <TableSection Title="Notification settings">
+                <EntryCell Label="Title"
+                           Placeholder="Enter title"
+                           Text="{Binding Notification.Title}"/>
+
+                <EntryCell Label="Description"
+                           Placeholder="Enter description"
+                           Text="{Binding Notification.Description}"/>
+
+                <ViewCell>
+                    <HorizontalStackLayout>
+                        <Label Text="Date"/>
+                        <DatePicker Date="{Binding NotificationDate}"/>
+                    </HorizontalStackLayout>
+                </ViewCell>
+
+                <ViewCell>
+                    <HorizontalStackLayout>
+                        <Label Text="Time"/>
+                        <TimePicker Time="{Binding NotificationTime}"/>
+                    </HorizontalStackLayout>
+                </ViewCell>
+
+                <SwitchCell x:Name="RepeatSwitch"
+                            Text="Repeat notifications"
+                            On="{Binding Notification.Schedule.RepeatType, 
+                                      Converter={StaticResource RepeatTypeConverter}}" />
+
+                <ViewCell IsEnabled="{Binding Source={x:Reference RepeatSwitch}, Path=On}">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding RepeatInterval, 
+                               StringFormat='Every {0} minutes'}"/>
+                        <Stepper Maximum="995"
+                                 Minimum="5"
+                                 Increment="5" 
+                                 Value="{Binding RepeatInterval}"/>
+                    </HorizontalStackLayout>
+                </ViewCell>
+
+                <ViewCell>
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Margin="12">
+                        <Button Text="Set"/>
+                        <Button Text="Clear"/>
+                    </HorizontalStackLayout>
+                </ViewCell>
+
+            </TableSection>
+        </TableRoot>
+    </TableView>-->
+
+    <Grid 
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
+        ColumnDefinitions="Auto,*">
+
+        <Label
+            Text="Notification settings"
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+
+        <Label
+            Text="Title"
+            Grid.Row="1" Grid.Column="0"/>
+        <Entry
+            Placeholder="Enter title"
+            Grid.Row="1" Grid.Column="1"
+            Text="{Binding Title}"/>
+
+        <Label
+            Text="Description"
+            Grid.Row="2" Grid.Column="0"/>
+        <Entry
+            Placeholder="Enter description"
+            Grid.Row="2" Grid.Column="1"
+            Text="{Binding Description}"/>
+
+        <Label 
+            Text="Date"
+            Grid.Row="3" Grid.Column="0"/>
+        <DatePicker 
+            Date="{Binding NotificationDate}"
+            Grid.Row="3" Grid.Column="1"/>
+
+        <Label 
+            Text="Time"
+            Grid.Row="4" Grid.Column="0"/>
+        <TimePicker 
+            Time="{Binding NotificationTime}"
+            Grid.Row="4" Grid.Column="1"/>
+
+        <Label
+            Text="Repeat"
+            Grid.Row="5" Grid.Column="0"/>
+        <Switch 
+            x:Name="RepeatSwitch"
+            Grid.Row="5" Grid.Column="1"
+            HorizontalOptions="Start"
+            IsToggled="{Binding EnableRepeat}" />
+
+        <HorizontalStackLayout
+            Grid.Row="6" Grid.Column="1"
+            IsVisible="{Binding Source={x:Reference RepeatSwitch}, Path=IsToggled}">
+            <Label 
+                Text="{Binding RepeatInterval, 
+                StringFormat='Every {0} minutes'}"/>
+            <Stepper 
+                Minimum="5"
+                Maximum="995"
+                Increment="5" 
+                WidthRequest="100"
+                Value="{Binding RepeatInterval}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout 
+            HorizontalOptions="Center"
+            Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+            Margin="1,30,1,0">
+            <Button 
+                Text="Set"
+                Command="{Binding SetCommand}"/>
+            <Button 
+                Text="Clear"
+                Command="{Binding ClearCommand}"/>
+        </HorizontalStackLayout>
+
+    </Grid>
+</ContentPage>

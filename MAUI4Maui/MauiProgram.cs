@@ -2,6 +2,7 @@
 using MAUI4Maui.ViewModels;
 using MAUI4Maui.Views;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 using Syncfusion.Maui.Core.Hosting;
 
 namespace MAUI4Maui;
@@ -13,6 +14,9 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+#if ANDROID || IOS
+            .UseLocalNotification()
+#endif
             .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
             {
@@ -25,8 +29,10 @@ public static class MauiProgram
 
         builder.Services.AddTransient<MainPage>()
             .AddTransient<GraphicsPage>()
+            .AddTransient<NotificationsPage>()
             .AddTransient<MainViewModel>()
-            .AddTransient<GraphicsViewModel>();
+            .AddTransient<GraphicsViewModel>()
+            .AddTransient<NotificationsViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
