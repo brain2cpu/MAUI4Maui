@@ -3,13 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI4Maui.Views.NotificationsPage"
              xmlns:viewModels="clr-namespace:MAUI4Maui.ViewModels"
-             xmlns:converters="clr-namespace:MAUI4Maui.Converters"
              x:DataType="viewModels:NotificationsViewModel"
              Title="MAUI for Maui">
 
     <ContentPage.Resources>
-        <converters:RepeatTypeConverter x:Key="RepeatTypeConverter"/>
-
         <Style TargetType="Label">
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="Margin" Value="6,5"/>
@@ -26,17 +23,17 @@
         https://github.com/dotnet/maui/issues/10322 
         https://github.com/dotnet/maui/issues/5292
     -->
-    <!--<TableView Intent="Settings"
+    <!-- <TableView Intent="Settings"
                HasUnevenRows="True">
         <TableRoot>
             <TableSection Title="Notification settings">
                 <EntryCell Label="Title"
                            Placeholder="Enter title"
-                           Text="{Binding Notification.Title}"/>
+                           Text="{Binding Title}"/>
 
                 <EntryCell Label="Description"
                            Placeholder="Enter description"
-                           Text="{Binding Notification.Description}"/>
+                           Text="{Binding Description}"/>
 
                 <ViewCell>
                     <HorizontalStackLayout>
@@ -54,13 +51,11 @@
 
                 <SwitchCell x:Name="RepeatSwitch"
                             Text="Repeat notifications"
-                            On="{Binding Notification.Schedule.RepeatType, 
-                                      Converter={StaticResource RepeatTypeConverter}}" />
+                            On="{Binding EnableRepeat}" />
 
-                <ViewCell IsEnabled="{Binding Source={x:Reference RepeatSwitch}, Path=On}">
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding RepeatInterval, 
-                               StringFormat='Every {0} minutes'}"/>
+                <ViewCell>
+                    <HorizontalStackLayout IsVisible="{Binding Source={x:Reference RepeatSwitch}, Path=On}">
+                        <Label Text="{Binding RepeatInterval, StringFormat='Every {0} minutes'}"/>
                         <Stepper Maximum="995"
                                  Minimum="5"
                                  Increment="5" 
@@ -71,14 +66,16 @@
                 <ViewCell>
                     <HorizontalStackLayout HorizontalOptions="Center"
                                            Margin="12">
-                        <Button Text="Set"/>
-                        <Button Text="Clear"/>
+                        <Button Text="Set"
+                                Command="{Binding SetCommand}"/>
+                        <Button Text="Clear"
+                                Command="{Binding ClearCommand}"/>
                     </HorizontalStackLayout>
                 </ViewCell>
 
             </TableSection>
         </TableRoot>
-    </TableView>-->
+    </TableView> -->
 
     <Grid 
         RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
@@ -87,6 +84,8 @@
         <Label
             Text="Notification settings"
             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            FontSize="28"
+            Margin="0,8,0,16"
             FontAttributes="Bold"
             HorizontalOptions="Center"/>
 
