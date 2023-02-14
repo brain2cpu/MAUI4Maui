@@ -7,7 +7,7 @@ namespace MAUI4Maui.Services;
 public sealed class ApiClient : IDisposable
 {
     // TODO: add your key
-    private const string ApiKey = "";
+    private const string ApiKey = "g4Qu5DKklfGxpyH1jbXfY5thANaTTBD9";
 
     private const string Domain = "https://api.polygon.io/";
     private const string Suffix = " - United States Dollar";

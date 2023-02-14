@@ -18,19 +18,16 @@ public partial class App : Application
     {
         if (e.IsDismissed)
         {
-            // your code goes here
+            MainPage?.DisplayAlert("MAUI for Maui - dismissed", e.Request.Title, "ok");
             return;
         }
         if (e.IsTapped)
         {
+            MainPage?.DisplayAlert("MAUI for Maui - tapped", e.Request.Title, "ok");
             // your code goes here
             return;
         }
         
-        // if Notification Action are setup
-        switch (e.ActionId)
-        {
-            // your code goes here
-        }
+        MainPage?.DisplayAlert("MAUI for Maui - any other case", e.Request.Title, "ok");
     }
 }

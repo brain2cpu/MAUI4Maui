@@ -10,6 +10,8 @@ public class MainViewModel : ViewModelBase
 {
     private readonly DataContext _data;
     private readonly ApiClient _apiClient;
+    
+    private List<NameId> _availableItems;
 
     public ObservableCollection<NameId> AvailableItems { get; } = new();
 
@@ -25,6 +27,22 @@ public class MainViewModel : ViewModelBase
     {
         get => Get<NameId>();
         set => Set(value, RemoveItemCommand);
+    }
+
+    public string Filter
+    {
+        get => Get("");
+        set
+        {
+            if (Set(value) && _availableItems != null)
+            {
+                AvailableItems.Clear();
+                foreach (var it in _availableItems.Where(x => x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    AvailableItems.Add(it);
+                }
+            }
+        }
     }
 
     public MainViewModel(DataContext data, ApiClient apiClient)
@@ -45,9 +63,9 @@ public class MainViewModel : ViewModelBase
         {
             AvailableItems.Clear();
 
-            var r = await _apiClient.GetTickersAsync();
+            _availableItems = await _apiClient.GetTickersAsync();
 
-            foreach (var it in r)
+            foreach (var it in _availableItems)
             {
                 AvailableItems.Add(it);
             }
@@ -59,6 +77,8 @@ public class MainViewModel : ViewModelBase
         finally
         {
             IsBusy = false;
+
+            NotifyPropertyChanged(nameof(AvailableItems));
         }
 
         /*

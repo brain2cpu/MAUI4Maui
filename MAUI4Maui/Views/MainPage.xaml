@@ -3,30 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:MAUI4Maui.ViewModels"
              xmlns:models="clr-namespace:MAUI4Maui.Models"
+             xmlns:converters="clr-namespace:MAUI4Maui.Converters"
              Title="MAUI for Maui"
              x:Class="MAUI4Maui.Views.MainPage"
              x:DataType="viewModels:MainViewModel">
 
+    <ContentPage.Resources>
+        <converters:ListIsNotEmptyConverter x:Key="ListIsNotEmptyConverter"/>
+    </ContentPage.Resources>
+
     <Grid
-        RowDefinitions="Auto,Auto,*,Auto"
-        ColumnDefinitions="*,Auto,*">
+        RowDefinitions="Auto,*,Auto,Auto,*"
+        ColumnDefinitions="*,Auto">
 
         <Label
-            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
             Text="Choose your favorites"
             FontAttributes="Bold"
             FontSize="28"
             Margin="0,8,0,16"
             HorizontalOptions="Center"/>
 
-        <Button
-            Grid.Row="1" Grid.Column="0"
-            Text="Fetch"
-            Margin="12,0"
-            Command="{Binding FetchDataCommand}"/>
-
         <Border
-            Grid.Row="2" Grid.Column="0"
+            Grid.Row="1" Grid.Column="0"
             Margin="2">
             <CollectionView
                 EmptyView="Please fetch the available cryptocurrencies!"
@@ -42,22 +41,36 @@
             </CollectionView>
         </Border>
 
-        <VerticalStackLayout
-            Grid.Row="2" Grid.Column="1"
+        <Button
+            Grid.Row="1" Grid.Column="1"
+            Text="Fetch"
+            Margin="12,0"
+            HeightRequest="60"
+            Command="{Binding FetchDataCommand}"/>
+
+        <SearchBar
+            Grid.Row="2" Grid.ColumnSpan="0"
+            Text="{Binding Filter}"
+            IsVisible="{Binding AvailableItems, Converter={StaticResource ListIsNotEmptyConverter}}"/>
+
+        <HorizontalStackLayout
+            Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <Button
                 Text="Add"
-                Margin="2,8"
+                Margin="8"
+                WidthRequest="100"
                 Command="{Binding AddItemCommand}"/>
             <Button
                 Text="Remove"
-                Margin="1,8"
+                Margin="8"
+                WidthRequest="100"
                 Command="{Binding RemoveItemCommand}"/>
-        </VerticalStackLayout>
+        </HorizontalStackLayout>
 
         <Border
-            Grid.Row="2" Grid.Column="2"
+            Grid.Row="4" Grid.Column="0"
             Margin="2">
             <CollectionView
                 EmptyView="Nothing added yet"
@@ -74,7 +87,7 @@
         </Border>
 
         <ActivityIndicator
-            Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3"
+            Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2"
             IsRunning="{Binding IsBusy}"/>
 
     </Grid>
