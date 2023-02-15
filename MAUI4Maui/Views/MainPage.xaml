@@ -49,7 +49,7 @@
             Command="{Binding FetchDataCommand}"/>
 
         <SearchBar
-            Grid.Row="2" Grid.ColumnSpan="0"
+            Grid.Row="2" Grid.Column="0"
             Text="{Binding Filter}"
             IsVisible="{Binding AvailableItems, Converter={StaticResource ListIsNotEmptyConverter}}"/>
 
