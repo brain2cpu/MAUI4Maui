@@ -9,7 +9,9 @@ public partial class App : Application
     {
         InitializeComponent();
 
+#if ANDROID || IOS
         LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
+#endif
 
         MainPage = new AppShell();
     }
@@ -24,7 +26,6 @@ public partial class App : Application
         if (e.IsTapped)
         {
             MainPage?.DisplayAlert("MAUI for Maui - tapped", e.Request.Title, "ok");
-            // your code goes here
             return;
         }
         
