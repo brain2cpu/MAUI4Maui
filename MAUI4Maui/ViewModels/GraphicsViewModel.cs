@@ -71,7 +71,7 @@ public class GraphicsViewModel : ViewModelBase
 
         foreach (var stock in _data.Stocks.OrderBy(x => x.Name))
         {
-            FavoriteItems.Add(new NameId {Name = stock.Name, Id = stock.Id});
+            FavoriteItems.Add(new NameId(stock.Name, stock.Id));
         }
     }
 }

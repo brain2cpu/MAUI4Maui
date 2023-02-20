@@ -25,7 +25,7 @@ public sealed class ApiClient : IDisposable
 
         return httpRes.Results
             .Where(x => x.Name.Contains(Suffix))
-            .Select(x => new NameId { Name = x.Name.Replace(Suffix, ""), Id = x.TickerId })
+            .Select(x => new NameId(x.Name.Replace(Suffix, ""), x.TickerId))
             .ToList();
     }
 
@@ -37,7 +37,7 @@ public sealed class ApiClient : IDisposable
         var httpRes = await _httpClient.GetFromJsonAsync<Aggregate>(url);
 
         return httpRes.Results
-            .Select(x => new DateValue { Date = UnixTimeStampToDateTime(x.T), Value = x.C })
+            .Select(x => new DateValue(Date: UnixTimeStampToDateTime(x.T), Value: x.C))
             .ToList();
     }
 

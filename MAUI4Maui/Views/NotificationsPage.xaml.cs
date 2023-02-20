@@ -2,7 +2,7 @@ using MAUI4Maui.ViewModels;
 
 namespace MAUI4Maui.Views;
 
-public partial class NotificationsPage : ContentPage
+public partial class NotificationsPage
 {
     private readonly NotificationsViewModel _viewModel;
 

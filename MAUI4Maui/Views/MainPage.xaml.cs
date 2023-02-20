@@ -2,7 +2,7 @@
 
 namespace MAUI4Maui.Views;
 
-public partial class MainPage : ContentPage
+public partial class MainPage
 {
     public MainPage(MainViewModel viewModel)
     {

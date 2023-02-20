@@ -2,7 +2,7 @@
 
 namespace MAUI4Maui.Views;
 
-public partial class GraphicsPage : ContentPage
+public partial class GraphicsPage
 {
 	public GraphicsPage(GraphicsViewModel viewModel)
 	{
