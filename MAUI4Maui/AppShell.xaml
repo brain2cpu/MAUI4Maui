@@ -23,6 +23,10 @@
         </Grid>
     </Shell.FlyoutHeader>
 
+    <Shell.FlyoutFooter>
+        <Label Text="v 0.0.1"/>
+    </Shell.FlyoutFooter>
+
     <ShellContent
         Title="Favorites"
         ContentTemplate="{DataTemplate views:MainPage}"
