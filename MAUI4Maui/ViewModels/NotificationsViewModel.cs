@@ -32,8 +32,8 @@ public class NotificationsViewModel : ViewModelBase
     }
 
     public TimeSpan NotificationTime
-    {                                         // obviously incorrect after 22:59 :)
-        get => Get(TimeSpan.FromHours(DateTime.Now.Hour + 1));
+    {
+        get => Get(DateTime.Now.AddMinutes(15).TimeOfDay);
         set => Set(value);
     }
 
